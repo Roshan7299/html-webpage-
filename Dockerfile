@@ -1,10 +1,11 @@
-FROM nginx
+# Use a base image with a web server and PHP support
+FROM php:7.4-apache
 
-# Remove the default Nginx configuration file
-RUN rm /etc/nginx/conf.d/default.conf
+# Copy the HTML file into the container
+COPY index.html /var/www/html/
 
-# Copy the index.html file to the root directory of the Nginx web server
-COPY index.html /usr/share/nginx/html
-
-# Expose port 80 for incoming HTTP requests
+# Expose port 80 for HTTP traffic
 EXPOSE 80
+
+# Start the Apache web server when the container starts
+CMD ["apache2-foreground"]
